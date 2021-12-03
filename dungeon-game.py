@@ -18,3 +18,4 @@ class Solution:
                     healthreq[i][j]= max(1, bestroute ) 
 
         return healthreq[0][0]
+    
