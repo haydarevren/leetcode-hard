@@ -4,21 +4,19 @@
 class Solution:   
     def lengthOfLongestSubstringKDistinct(self, s: str, k: int) -> int:
         if k==0: return 0
+        if k>=len(s): return len(s)
         
         s = [w for w in s]
-        ord_max = max([ord(w) for w in s])
-        ord_min = min([ord(w) for w in s])
-        freq_table = [0] * (ord_max-ord_min+1)
-        
         cur_string = []
         cur_lenght, max_length, cur_distinct  = 0, 0, 0
+        freq_dict=collections.defaultdict(int)
 
         while s:
             w = s.pop()
             cur_string.append(w)
             cur_lenght += 1
-            freq_table[ord(w)-ord_min] +=1
-            if freq_table[ord(w)-ord_min] == 1: cur_distinct += 1   #new char
+            freq_dict[w] +=1
+            if freq_dict[w] == 1: cur_distinct += 1   #new char
 
             if cur_distinct <= k: #update max_length
                 max_length = max(max_length, cur_lenght)
@@ -27,7 +25,7 @@ class Solution:
                 while cur_distinct > k and cur_lenght:
                     w = cur_string.pop(0)
                     cur_lenght -= 1
-                    freq_table[ord(w)-ord_min] -=1
-                    if freq_table[ord(w)-ord_min] == 0: cur_distinct -= 1
+                    freq_dict[w] -=1
+                    if freq_dict[w] == 0: cur_distinct -= 1
 
         return max_length 
