@@ -8,29 +8,18 @@
 #         self.next = next
 class Solution:
     def deleteMiddle(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        # Count of nodes
-        def lenList(head):
-            count = 0
-            while (head != None):
-                head = head.next
-                count += 1
-            return count
+        if head.next is None: #if the length is 1 return None
+            return None
         
-        cHead = head
-  
-        # Find the count of nodes
-        count = lenList(head)
-        if count<=1: return None
+        slow = head
+        fast = head
+        
+        while fast and fast.next and fast.next.next and fast.next.next.next:
+            slow=slow.next
+            fast=fast.next.next
 
-        # Find the middle node
-        mid = count // 2
-
-        # Delete the middle node
-        while (mid > 1):
-            mid -= 1
-            head = head.next
-
-        # Delete the middle node
-        head.next = head.next.next
+        slow.next= slow.next.next #link middle-1 to middle+1
+        
+        return head
 
         return cHead
