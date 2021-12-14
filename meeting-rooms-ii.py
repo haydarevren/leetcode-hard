@@ -9,13 +9,11 @@ class Solution:
         
         intervals.sort()
         p_que = [intervals[0][1]]
-        rooms = 1
 
         for s,e in intervals[1:]:
             if s < p_que[0]:
                 heapq.heappush(p_que,e)
-                rooms +=1
             else:
                 heapq.heapreplace(p_que,e)
                 
-        return rooms
+        return len(p_que)
